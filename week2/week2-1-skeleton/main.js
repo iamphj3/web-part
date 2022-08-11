@@ -31,4 +31,38 @@ const quizList = [
   },
 ];
 
+function attachEvent({ score, answer, image }) {
+  answer.addEventListener("click", (e) => {
+    // if (e.target.closest(".answer__list > li") {}
+    if (!(e.target instanceof HTMLLIElement)) return;
 
+    const selectedAnswer = e.target.innerText;
+    const realAnswer = quizList[currentStep].answer;
+
+    if (selectedAnswer === realAnswer) {
+      if (currentStep < 4) {
+        goNextStep(score, image);
+      } else {
+        goInitStep();
+      }
+    } else {
+      stayCurrentStep();
+    }
+  });
+}
+function initGame({ score, image }) {
+  currentStep = 0;
+  score.innerText = currentStep;
+  image.src = quizList[currentStep].src;
+}
+function gameManager(gameInfo) {
+  initGame(gameInfo);
+  attachEvent(gameInfo);
+}
+window.onload = () => {
+  gameManager({
+    score: $(".scoreBoard__score"),
+    answer: $(".answer__list"),
+    image: $(".imageBoard > img"),
+  });
+};
