@@ -1,10 +1,11 @@
-import './App.css';
+import React from 'react';
+import Router from './core/router';
 
 function App() {
   return (
-    <div>
-      3주차 과제
-    </div>
+    <>
+      <Router />
+    </>
   );
 }
 
